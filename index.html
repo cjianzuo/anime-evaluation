@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>アニメ評価</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f2f2f2;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    
+    form {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    p {
+      margin-bottom: 10px;
+      width: 60%;
+      text-align: center;
+      font-size: 18px;
+    }
+    
+    select {
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    
+    button {
+      padding: 5px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    #total {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+     function calculateTotal() {
+      var total = 0;
+      var selects = document.getElementsByClassName('point');
+      var animeTitle = document.getElementById('animeTitle').value; // アニメのタイトルを取得
+
+      for (var i = 0; i < selects.length; i++) {
+        var selectedOption = selects[i].value;
+        if (selectedOption === '✕') {
+          total += 0;
+        } else if (selectedOption === '◯') {
+          total += 0.5;
+        } else if (selectedOption === '◎') {
+          total += 1;
+        }
+      }
+
+      document.getElementById('total').innerHTML = '合計点: ' + total + '点';
+
+      return total;
+    }
+
+    function downloadEvaluation() {
+      var total = calculateTotal();
+      var selects = document.getElementsByClassName('point');
+      var animeTitle = document.getElementById('animeTitle').value; // アニメのタイトルを取得
+
+      var evaluationText = 'アニメのタイトル: ' + animeTitle + '\n' +
+                           'ストーリー: ' + selects[0].value + '\n' +
+                           'キャラクター: ' + selects[1].value + '\n' +
+                           '絵とデザイン: ' + selects[2].value + '\n' +
+                           'アニメーション: ' + selects[3].value + '\n' +
+                           '音楽とサウンド: ' + selects[4].value + '\n' +
+                           '声優の演技: ' + selects[5].value + '\n' +
+                           'テーマやメッセージ: ' + selects[6].value + '\n' +
+                           '独自性: ' + selects[7].value + '\n' +
+                           '演出とパフォーマンス: ' + selects[8].value + '\n' +
+                           '感動や楽しさの体験: ' + selects[9].value + '\n' +
+                           '合計点: ' + total + '点';
+
+      var downloadLink = document.createElement('a');
+      downloadLink.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(evaluationText);
+      downloadLink.download = 'anime_evaluation.txt';
+      downloadLink.click();
+    }
+	
+	function getEvaluationText() {
+      var total = calculateTotal();
+      var selects = document.getElementsByClassName('point');
+      var animeTitle = document.getElementById('animeTitle').value;
+
+      var evaluationText = 'アニメのタイトル: ' + animeTitle + '\n' +
+                           'ストーリー: ' + selects[0].value + '\n' +
+                           'キャラクター: ' + selects[1].value + '\n' +
+                           '絵とデザイン: ' + selects[2].value + '\n' +
+                           'アニメーション: ' + selects[3].value + '\n' +
+                           '音楽とサウンド: ' + selects[4].value + '\n' +
+                           '声優の演技: ' + selects[5].value + '\n' +
+                           'テーマやメッセージ: ' + selects[6].value + '\n' +
+                           '独自性: ' + selects[7].value + '\n' +
+                           '演出とパフォーマンス: ' + selects[8].value + '\n' +
+                           '感動や楽しさの体験: ' + selects[9].value + '\n' +
+                           '合計点: ' + total + '点';
+
+      return evaluationText;
+    }
+	
+	function shareOnTwitter() {
+      var evaluationText = getEvaluationText();
+      var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(evaluationText);
+      window.open(url, '_blank');
+    }
+  </script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</head>
+<body>
+  <h1>アニメ評価</h1>
+  
+  <form>
+    <p>アニメのタイトル：
+      <input type="text" id="animeTitle" />
+    </p>
+
+    <p>ストーリー：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>キャラクター：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>絵とデザイン：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>アニメーション：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>音楽とサウンド：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>声優の演技：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>テーマやメッセージ：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>独自性：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>演出とパフォーマンス：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+    
+    <p>感動や楽しさの体験：
+      <select class="point">
+        <option value="✕">✕</option>
+        <option value="◯" selected>◯</option>
+        <option value="◎">◎</option>
+      </select>
+    </p>
+  </form>
+  
+  <button onclick="calculateTotal()">合計を計算</button>
+  <a class="twitter-share-button" href="#" onclick="shareOnTwitter()">Twitterでシェアする</a>
+  
+  <p id="total"></p>
+  
+</body>
+</html>

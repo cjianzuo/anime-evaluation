@@ -29,7 +29,7 @@
     
     p {
       margin-bottom: 10px;
-      width: 60%;
+      width: 100%; /* 全幅に広げる */
       text-align: center;
       font-size: 18px;
     }
@@ -53,11 +53,29 @@
       margin: 0 auto;
     }
     
+    #total-box {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 200px;
+  margin: 0 auto; /* 中央に配置するために追加 */
+}
+
+
+    #total-box.show { /* 追加 */
+      display: flex;
+      margin-left: auto;
+    }
+
     #total {
       font-size: 30px;
       font-weight: bold;
-      text-align: right;
-      margin-top: 20px;
+      margin: 0;
     }
   </style>
   <script>
@@ -77,7 +95,8 @@
         }
       }
 
-      document.getElementById('total').innerHTML = '合計点: ' + total + '点';
+      document.getElementById('total').innerHTML = '評価点: ' + total + '点';
+	  document.getElementById('total-box').style.display = 'flex';
 
       return total;
     }
@@ -98,7 +117,7 @@
                            '独自性: ' + selects[7].value + '\n' +
                            '演出とパフォーマンス: ' + selects[8].value + '\n' +
                            '感動や楽しさの体験: ' + selects[9].value + '\n' +
-                           '合計点: ' + total + '点';
+                           '評価点: ' + total + '点';
 
       return evaluationText;
     }
@@ -199,9 +218,11 @@
     </p>
   </form>
   
-  <button onclick="calculateTotal()">合計を計算</button>
+  <button onclick="calculateTotal()">結果を表示する</button>
   <a class="twitter-share-button" href="#" onclick="shareOnTwitter()">Twitterでシェアする</a>
   
-  <p id="total"></p>
+  <div id="total-box">
+    <p id="total"></p>
+  </div>
 </body>
 </html>

@@ -135,8 +135,9 @@
   
   <form>
     <p>タイトル：
-      <input type="text" id="animeTitle" />
-    </p>
+	<input type="text" id="animeTitle" style="width: 300px;" />
+	</p>
+
 
     <p>ストーリー：
       <select class="point">
@@ -220,7 +221,7 @@
   </form>
   
   <button onclick="calculateTotal()">結果を表示する</button>
-  <a class="twitter-share-button" href="#" onclick="shareOnTwitter()">Twitterでシェアする</a>
+  <a class="twitter-share-button" href="#" onclick="shareOnTwitter()" target="_blank">Twitterでシェアする</a>
   
   <div id="total-box">
     <p id="total"></p>

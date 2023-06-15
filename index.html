@@ -94,9 +94,7 @@ a.twitter-share-button {
 }
   </style>
   <script>
-	var accessToken = "yuE5y9X1OoJ4wBAyHh5g3SLXzcDJUnPY8momHYGT";
-	
-    function calculateTotal() {
+	function calculateTotal() {
       var total = 0;
       var selects = document.getElementsByClassName('point');
       var animeTitle = document.getElementById('animeTitle').value; // アニメのタイトルを取得
@@ -143,47 +141,6 @@ a.twitter-share-button {
       var evaluationText = getEvaluationText();
       var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(evaluationText);
       window.open(url, '_blank');
-    }
-	
-	function submitRating(animeId) {
-      var evaluationText = getEvaluationText();
-
-      var ratingUrl = 'https://api.anilist.co/v2/anime/' + animeId + '/stats';
-      fetch(ratingUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + accessToken
-        },
-        body: JSON.stringify({
-          rating: evaluationText
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('評価が正常に記録されました。');
-          console.log(data);
-        })
-        .catch(error => console.error(error));
-    }
-
-    function evaluateAnime() {
-      var animeTitle = document.getElementById('animeTitle').value;
-
-      var searchUrl = 'https://api.anilist.co/v2/anime/search?title=' + encodeURIComponent(animeTitle);
-
-      fetch(searchUrl, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + accessToken
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          var animeId = data.data.Page.media[0].id;
-          submitRating(animeId);
-        })
-        .catch(error => console.error(error));
     }
   </script>
 </head>
@@ -293,12 +250,6 @@ a.twitter-share-button {
   <div id="total-box">
     <p id="total"></p>
   </div>
-  
-  <script>
-    var submitButton = document.createElement('button');
-submitButton.textContent = 'AniListに評価を送信する';
-submitButton.onclick = evaluateAnime;
-document.body.appendChild(submitButton);
   </script>
 </body>
 </html>

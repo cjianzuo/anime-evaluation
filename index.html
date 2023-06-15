@@ -7,54 +7,69 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 20px;
       background-color: #f2f2f2;
-      zoom: 90%; /* 拡大率を90%に設定 */
     }
-    
-    h1 {
-      text-align: center;
-      color: #333;
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-    
-    form {
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      background-color: #fff;
-      border-radius: 4px;
-      padding: 20px;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    p {
-      margin-bottom: 10px;
-      width: 100%; /* 全幅に広げる */
-      text-align: center;
-      font-size: 18px;
-    }
-    
-    select {
-      padding: 5px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    
-    button {
-      padding: 5px 20px;
-      font-size: 18px;
-      background-color: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: block;
-      margin: 0 auto;
-    }
-    
-    #total-box {
+
+    .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+form {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+select {
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 40px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+a.twitter-share-button {
+  display: block;
+  text-align: center;
+  width: 200px;
+  font-size: 18px;
+  background-color: #1DA1F2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+#total-box {
   display: none;
   justify-content: center;
   align-items: center;
@@ -64,22 +79,23 @@
   border-radius: 4px;
   background-color: #fff;
   width: 200px;
-  margin: 0 auto; /* 中央に配置するために追加 */
+  margin: 0 auto;
 }
 
+#total-box.show {
+  display: flex;
+  margin-left: auto;
+}
 
-    #total-box.show { /* 追加 */
-      display: flex;
-      margin-left: auto;
-    }
-
-    #total {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 0;
-    }
+#total {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
   </style>
   <script>
+	var accessToken = "yuE5y9X1OoJ4wBAyHh5g3SLXzcDJUnPY8momHYGT";
+	
     function calculateTotal() {
       var total = 0;
       var selects = document.getElementsByClassName('point');
@@ -128,6 +144,47 @@
       var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(evaluationText);
       window.open(url, '_blank');
     }
+	
+	function submitRating(animeId) {
+      var evaluationText = getEvaluationText();
+
+      var ratingUrl = 'https://api.anilist.co/v2/anime/' + animeId + '/stats';
+      fetch(ratingUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + accessToken
+        },
+        body: JSON.stringify({
+          rating: evaluationText
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('評価が正常に記録されました。');
+          console.log(data);
+        })
+        .catch(error => console.error(error));
+    }
+
+    function evaluateAnime() {
+      var animeTitle = document.getElementById('animeTitle').value;
+
+      var searchUrl = 'https://api.anilist.co/v2/anime/search?title=' + encodeURIComponent(animeTitle);
+
+      fetch(searchUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + accessToken
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          var animeId = data.data.Page.media[0].id;
+          submitRating(animeId);
+        })
+        .catch(error => console.error(error));
+    }
   </script>
 </head>
 <body>
@@ -135,86 +192,96 @@
   
   <form>
     <p>タイトル：
-	<input type="text" id="animeTitle" style="width: 300px;" />
-	</p>
+      <input type="text" id="animeTitle" style="width: 300px;" />
+    </p>
 
 
     <p>ストーリー：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>キャラクター：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>絵とデザイン：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>アニメーション：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>音楽とサウンド：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>声優の演技：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>テーマやメッセージ：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>独自性：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>演出とパフォーマンス：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
     
     <p>感動や楽しさの体験：
       <select class="point">
+        <option value="" selected disabled></option>
         <option value="✕">✕</option>
-        <option value="◯" selected>◯</option>
+        <option value="◯">◯</option>
         <option value="◎">◎</option>
       </select>
     </p>
@@ -222,9 +289,16 @@
   
   <button onclick="calculateTotal()">結果を表示する</button>
   <a class="twitter-share-button" href="#" onclick="shareOnTwitter()" target="_blank">Twitterでシェアする</a>
-  
+
   <div id="total-box">
     <p id="total"></p>
   </div>
+  
+  <script>
+    var submitButton = document.createElement('button');
+    submitButton.textContent = 'AniListに評価を送信する';
+    submitButton.onclick = evaluateAnime;
+    document.body.appendChild(submitButton);
+  </script>
 </body>
 </html>

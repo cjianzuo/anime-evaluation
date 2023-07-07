@@ -98,47 +98,50 @@ a.twitter-share-button {
   </style>
   <script>
 	function calculateTotal() {
-      var total = 0;
-      var selects = document.getElementsByClassName('point');
-      var animeTitle = document.getElementById('animeTitle').value; // アニメのタイトルを取得
+  var total = 0;
+  var selects = document.getElementsByClassName('point');
+  var animeTitle = document.getElementById('animeTitle').value;
 
-      for (var i = 0; i < selects.length; i++) {
-        var selectedOption = selects[i].value;
-        if (selectedOption === '✕') {
-          total += 0;
-        } else if (selectedOption === '◯') {
-          total += 0.5;
-        } else if (selectedOption === '◎') {
-          total += 1;
-        }
-      }
-
-      document.getElementById('total').innerHTML = '評価点: ' + total + '点';
-	  document.getElementById('total-box').style.display = 'flex';
-
-      return total;
+  for (var i = 0; i < selects.length; i++) {
+    var selectedOption = selects[i].value;
+    if (selectedOption === '1') {
+      total += 2;
+    } else if (selectedOption === '2') {
+      total += 4;
+    } else if (selectedOption === '3') {
+      total += 6;
+    } else if (selectedOption === '4') {
+      total += 8;
+    } else if (selectedOption === '5') {
+      total += 10;
     }
+  }
 
+  document.getElementById('total').innerHTML = '評価点: ' + Math.floor(total) + '点';
+  document.getElementById('total-box').style.display = 'flex';
+
+  return total;
+}
     function getEvaluationText() {
-      var total = calculateTotal();
-      var selects = document.getElementsByClassName('point');
-      var animeTitle = document.getElementById('animeTitle').value;
+  var total = calculateTotal();
+  var selects = document.getElementsByClassName('point');
+  var animeTitle = document.getElementById('animeTitle').value;
 
-       var evaluationText ='タイトル: ' + animeTitle + '\n' +
-                           'ストーリー: ' + selects[0].value + '\n' +
-                           'キャラクター: ' + selects[1].value + '\n' +
-                           '絵とデザイン: ' + selects[2].value + '\n' +
-                           'アニメーション: ' + selects[3].value + '\n' +
-                           '音楽とサウンド: ' + selects[4].value + '\n' +
-                           '声優: ' + selects[5].value + '\n' +
-                           'テーマやメッセージ: ' + selects[6].value + '\n' +
-                           '独自性: ' + selects[7].value + '\n' +
-                           '演出とパフォーマンス: ' + selects[8].value + '\n' +
-                           '感動や楽しさの体験: ' + selects[9].value + '\n' +
-                           '評価点: ' + total + '点';
+  var evaluationText = 'タイトル: ' + animeTitle + '\n' +
+                     'ストーリー: ' + Math.floor(parseFloat(selects[0].value) * 2) + '点\n' +
+                     'キャラクター: ' + Math.floor(parseFloat(selects[1].value) * 2) + '点\n' +
+                     '絵とデザイン: ' + Math.floor(parseFloat(selects[2].value) * 2) + '点\n' +
+                     'アニメーション: ' + Math.floor(parseFloat(selects[3].value) * 2) + '点\n' +
+                     '音楽とサウンド: ' + Math.floor(parseFloat(selects[4].value) * 2) + '点\n' +
+                     '声優: ' + Math.floor(parseFloat(selects[5].value) * 2) + '点\n' +
+                     'テーマやメッセージ: ' + Math.floor(parseFloat(selects[6].value) * 2) + '点\n' +
+                     '独自性: ' + Math.floor(parseFloat(selects[7].value) * 2) + '点\n' +
+                     '演出とパフォーマンス: ' + Math.floor(parseFloat(selects[8].value) * 2) + '点\n' +
+                     '感動や楽しさの体験: ' + Math.floor(parseFloat(selects[9].value) * 2) + '点\n' +
+                     '評価点: ' + Math.floor(total) + '点';
 
-      return evaluationText;
-    }
+  return evaluationText;
+}
 
     function shareOnTwitter() {
       var evaluationText = getEvaluationText();
@@ -158,92 +161,112 @@ a.twitter-share-button {
 
     <p>ストーリー：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>キャラクター：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>絵とデザイン：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>アニメーション：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>音楽とサウンド：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>声優：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>テーマやメッセージ：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>独自性：
-      <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+     <select class="point">
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>演出とパフォーマンス：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
     
     <p>感動や楽しさの体験：
       <select class="point">
-        <option value="" selected disabled></option>
-        <option value="✕">✕</option>
-        <option value="◯">◯</option>
-        <option value="◎">◎</option>
-      </select>
+  <option value="" selected disabled></option>
+  <option value="1">✕</option>
+  <option value="2">△</option>
+  <option value="3">◯</option>
+  <option value="4">◎</option>
+  <option value="5">☆</option>
+</select>
     </p>
   </form>
   

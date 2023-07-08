@@ -7,6 +7,8 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 20px;
       background-color: #f2f2f2;
+	  zoom: 1.5;
+	  -moz-transform: scale(1.5);
     }
 
     .container {
@@ -27,7 +29,7 @@ form {
   background-color: #fff;
   border-radius: 4px;
   width: 375px;
-  height: 570px;
+  height: 340px;
   padding: 5px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -105,15 +107,15 @@ a.twitter-share-button {
   for (var i = 0; i < selects.length; i++) {
     var selectedOption = selects[i].value;
     if (selectedOption === '1') {
-      total += 2;
+      total += 0;
     } else if (selectedOption === '2') {
-      total += 4;
+      total += 5;
     } else if (selectedOption === '3') {
-      total += 6;
-    } else if (selectedOption === '4') {
-      total += 8;
-    } else if (selectedOption === '5') {
       total += 10;
+    } else if (selectedOption === '4') {
+      total += 15;
+    } else if (selectedOption === '5') {
+      total += 20;
     }
   }
 
@@ -181,17 +183,6 @@ a.twitter-share-button {
 </select>
     </p>
     
-    <p>絵とデザイン：
-      <select class="point">
-  <option value="" selected disabled></option>
-  <option value="1">✕</option>
-  <option value="2">△</option>
-  <option value="3">◯</option>
-  <option value="4">◎</option>
-  <option value="5">☆</option>
-</select>
-    </p>
-    
     <p>アニメーション：
       <select class="point">
   <option value="" selected disabled></option>
@@ -215,50 +206,6 @@ a.twitter-share-button {
     </p>
     
     <p>声優：
-      <select class="point">
-  <option value="" selected disabled></option>
-  <option value="1">✕</option>
-  <option value="2">△</option>
-  <option value="3">◯</option>
-  <option value="4">◎</option>
-  <option value="5">☆</option>
-</select>
-    </p>
-    
-    <p>テーマやメッセージ：
-      <select class="point">
-  <option value="" selected disabled></option>
-  <option value="1">✕</option>
-  <option value="2">△</option>
-  <option value="3">◯</option>
-  <option value="4">◎</option>
-  <option value="5">☆</option>
-</select>
-    </p>
-    
-    <p>独自性：
-     <select class="point">
-  <option value="" selected disabled></option>
-  <option value="1">✕</option>
-  <option value="2">△</option>
-  <option value="3">◯</option>
-  <option value="4">◎</option>
-  <option value="5">☆</option>
-</select>
-    </p>
-    
-    <p>演出とパフォーマンス：
-      <select class="point">
-  <option value="" selected disabled></option>
-  <option value="1">✕</option>
-  <option value="2">△</option>
-  <option value="3">◯</option>
-  <option value="4">◎</option>
-  <option value="5">☆</option>
-</select>
-    </p>
-    
-    <p>感動や楽しさの体験：
       <select class="point">
   <option value="" selected disabled></option>
   <option value="1">✕</option>
